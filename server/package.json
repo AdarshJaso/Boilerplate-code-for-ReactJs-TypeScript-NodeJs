@@ -28,7 +28,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
-    "validate": "yarn type-check && yarn lint && yarn format"
+    "validate": "yarn type-check && yarn lint && yarn format",
+    "clean-install": "rm -rf node_modules .eslintcache yarn.lock && yarn install"
   },
   "engines": {
     "node": ">=18.0.0"
