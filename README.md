@@ -13,11 +13,14 @@ This project is built using TypeScript, Vite for the frontend, and `tsx` for run
 # Install dependencies
 yarn install
 
-# (Optional) Install tsx globally to run TypeScript files in Node.js
+# Install tsx globally to run TypeScript files in Node.js
 yarn global add tsx
 
+# Install nodemon globally for NodeJs to automatically restart application when changes are done
+yarn global add nodemon
+
 #run
-yarn run dev
+yarn dev
 
 #run specific file in nodejs
 tsx server/src/server.ts
