@@ -4,9 +4,13 @@ import eslintImport from 'eslint-plugin-import';
 import prettier from 'eslint-plugin-prettier';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-
+import validateJsxNesting from 'eslint-plugin-validate-jsx-nesting';
 export default [
   {
+    ignores: ['node_modules', '.gitignore', 'dist', 'build', 'coverage', 'server/**'],
+  },
+  {
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -22,6 +26,7 @@ export default [
       '@typescript-eslint': typescriptEslint,
       import: eslintImport,
       prettier,
+      'validate-jsx-nesting': validateJsxNesting,
     },
     settings: {
       react: {
@@ -31,70 +36,115 @@ export default [
         typescript: {
           project: './tsconfig.json',
         },
+        node: true,
       },
     },
     rules: {
+      // ======================
+      // Import/Module Rules
+      // ======================
       'import/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
+          pathGroups: [
+            { pattern: '@/**', group: 'internal' },
+            { pattern: '{@/**/*,*}.{css,scss}', group: 'object', position: 'after' },
+          ],
+          distinctGroup: false,
           'newlines-between': 'never',
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
+
+      // ======================
+      // Core JavaScript Rules
+      // ======================
       'no-console': 'warn',
       'no-debugger': 'error',
+      'no-unused-vars': 'off',
+
+      // ======================
+      // TypeScript Rules
+      // ======================
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      // ======================
+      // React Rules
+      // ======================
+      // React Basic Rules
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'react/jsx-no-undef': 'warn',
-      'prettier/prettier': 'error',
+      'react/jsx-pascal-case': 'warn',
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error',
+      'react/no-this-in-sfc': 'error',
 
-      '@next/next/no-img-element': 'off', // temp
-      'react/no-unescaped-entities': 'off',
-      'no-unused-vars': 'off', // temp
-      // '@tanstack/query/exhaustive-deps': 'error',
-      // '@tanstack/query/no-rest-destructuring': 'warn',
-      // '@tanstack/query/stable-query-client': 'error',
-
-      // 'validate-jsx-nesting/no-invalid-jsx-nesting': 'error',
-
+      // React JSX Specific Rules
       'react/jsx-no-useless-fragment': 'warn',
-      'react/jsx-no-bind': ['off', { ignoreRefs: true }], // temp
       'react/jsx-key': 'warn',
       'react/jsx-no-duplicate-props': 'warn',
-      'react/prop-types': 'off',
-      'react/no-array-index-key': 'off', // temp
-      'react/no-unstable-nested-components': ['warn', { allowAsProps: true }], // temp
-      'react/no-danger': 'off', // temp
-      'react/no-deprecated': 'warn',
-      'react/jsx-no-constructed-context-values': 'warn',
-
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': ['warn', { additionalHooks: '(useQuery|useMutation)' }],
-
       'react/jsx-curly-brace-presence': ['warn', 'never'],
-      'react/react-in-jsx-scope': 'off', // React 17 and above do not need React in scope
-      'react/jsx-max-depth': ['off', { max: 3 }], // temp
       'react/jsx-no-comment-textnodes': 'warn',
+      'react/jsx-no-bind': ['off', { ignoreRefs: true }],
+      'react/jsx-no-literals': 'off',
+      'react/jsx-max-depth': ['off', { max: 3 }],
 
-      'react/require-default-props': 'warn',
-      'react/no-render-return-value': 'warn',
-      'react/no-unused-prop-types': 'warn',
-
+      // React Component Structure
       'react/sort-comp': [
         'warn',
         {
           order: ['static-methods', 'lifecycle', 'everything-else', 'render', 'render-return'],
         },
       ],
+      'react/no-unstable-nested-components': ['warn', { allowAsProps: true }],
 
-      'react/jsx-pascal-case': 'warn',
-      'react/jsx-uses-react': 'error',
-      'react/jsx-uses-vars': 'error',
+      // React Deprecations/Warnings
+      'react/no-deprecated': 'warn',
+      'react/no-danger': 'off',
+      'react/no-array-index-key': 'off',
+      'react/no-unescaped-entities': 'off',
       'react/no-unknown-property': 'warn',
-      'react/no-this-in-sfc': 'error',
-      'react/jsx-no-literals': 'off',
+      'react/jsx-no-constructed-context-values': 'warn',
+
+      // React Props
+      'react/require-default-props': 'warn',
+      'react/no-unused-prop-types': 'warn',
+      'react/no-render-return-value': 'warn',
+
+      // ======================
+      // React Hooks Rules
+      // ======================
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': ['warn', { additionalHooks: '(useQuery|useMutation)' }],
+
+      // ======================
+      // JSX Nesting Validation
+      // ======================
+      'validate-jsx-nesting/no-invalid-jsx-nesting': 'error',
+
+      // ======================
+      // Formatting/Prettier
+      // ======================
+      'prettier/prettier': 'error',
+
+      // ======================
+      // TanStack Query Rules (Commented)
+      // ======================
+      // '@tanstack/query/exhaustive-deps': 'error',
+      // '@tanstack/query/no-rest-destructuring': 'warn',
+      // '@tanstack/query/stable-query-client': 'error'
     },
   },
 ];

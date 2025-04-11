@@ -3,12 +3,15 @@ import tsParser from '@typescript-eslint/parser';
 import eslintImport from 'eslint-plugin-import';
 
 export default [
+  { ignores: ['.gitignore', 'node_modules', 'dist', 'build', 'coverage'] },
   {
+    files: ['**/*.ts'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: './tsconfig.server.json',
+        ecmaVersion: 'latest',
         sourceType: 'module',
+        project: './tsconfig.server.json',
       },
     },
     plugins: {

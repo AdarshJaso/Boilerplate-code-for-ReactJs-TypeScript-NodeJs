@@ -10,12 +10,13 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@pages/*": ["src/pages/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["src/**/*", "eslint.config.js", "tailwind.config.js", "vite.config.js", "server/eslint.config.js"], 
+  "include": ["src/**/*", "eslint.config.js", "tailwind.config.js", "vite.config.js"],
   "exclude": ["node_modules"]
 }

@@ -47,13 +47,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "preview": "vitepreview",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "validate": "yarn type-check && yarn lint && yarn format",
-    "clean-install": "rm -rf node_modules .eslintcache yarn.lock && yarn install"
+    "clean-install": "rm -rf node_modules .eslintcache yarn.lock && yarn install",
+    "sort-imports": "eslint --fix --rule 'import/order: [\"error\", {\"groups\": [\"builtin\",\"external\",\"internal\",\"parent\",\"sibling\",\"index\",\"object\",\"type\"], \"newlines-between\": \"always\"}]' src/**/*.{ts,tsx}"
   },
   "browserslist": {
     "production": [
