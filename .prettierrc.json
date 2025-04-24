@@ -9,7 +9,7 @@
   "bracketSpacing": true,
   "arrowParens": "always",
   "jsxSingleQuote": false,
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "jsxBracketSameLine": false,
   "semi": true
 }

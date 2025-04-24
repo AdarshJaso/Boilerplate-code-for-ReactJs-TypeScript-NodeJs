@@ -137,7 +137,12 @@ export default [
       // ======================
       // Formatting/Prettier
       // ======================
-      'prettier/prettier': 'error',
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
 
       // ======================
       // TanStack Query Rules (Commented)
