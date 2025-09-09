@@ -12,11 +12,13 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "allowJs": true,
+    "allowJs": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "outDir": "./dist", // Tell TypeScript where to put the compiled .js files
+    "rootDir": "./src"
   },
   "include": ["src/**/*", "eslint.config.js"],
   "exclude": ["node_modules"]
